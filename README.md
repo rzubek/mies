@@ -13,17 +13,39 @@ Built on .NET Core 3. No extra databases or web frameworks required.
 Mies is a static blog generator. The user writes a blog as a collection of markdown files, plus a set of shared templates that control their appearance. From this input, Mies generates a complete set of HTML pages plus a dynamic front page with most recent posts.
 
 Some benefits of this tool in particular:
-  - Blog posts are written in enhanced markdown:
-    - Markdown is user-friendly, and provides a good separation between text and its visual representation
-    - Our flavor of markdown is enhanced by a variety of extensions, for tables, links, lists, and more: see [the markdig page for the full list](https://github.com/lunet-io/markdig)
-  - Powerful templating
-    - Visual appearance comes from a small number of user-customizable templates
-    - Each template is actually a Razor page, so it can contain arbitrary C# code
-    - This makes templates very powerful: one can do extensive customization of behavior just by scripting templates, without touching generator source code
-  - Less is more
-    - This is not an all-purpose tool: it doesn't have a lot of bells and whistles, it only makes simple blogs, and it makes them quickly
-	- Static blog makes for very fast load times, and minimal administrative hassle, compared to a dynamic blog engine like WordPress - I'm not interested in administering web servers and sql databases anymore :)
-	- It's built in C# on .NET, which I use every day anyway; not having to install big toolchains like Ruby just to update a simple blog is very nice
+
+### Blog posts are written in enhanced markdown
+
+Markdown is user-friendly, and provides a good separation between text and its visual representation. 
+
+Additionally, our flavor of markdown is enhanced by a variety of extensions, for tables, links, lists, and more: see [the markdig page for the full list](https://github.com/lunet-io/markdig).
+
+### Powerful templating
+
+Visual appearance comes from a small number of user-customizable templates. 
+
+Each template is actually a Razor page (Razor is a .NET templating engine), so it can contain arbitrary C# code. This makes templates very powerful: one can do extensive customization of behavior just by scripting templates, without touching generator source code.
+
+### Less is more
+
+Mies doesn't have a lot of the "semantic decoration" that is commonly associated with blogs. This is intentional. A lot of irrelevant information actually doesn't help the reader; they're just decorative elements, distracting, and ultimately useless.
+
+Some examples of deliberately omitted semantic decorations:
+  - Tags. There are no tags on posts, and no tag wordclouds or directories. Tags are hugely distracting visually, while at the same time useless to the reader, except in the cases of _very_ large sites.
+  - Calendar sidebar. Posts can be timestamped if desired, but there is no sidebar listing of posts by year and month. Those calendar sidebars are only good for high-traffic sites that have a lot of content, otherwise they just add visual noise, and brings to attention the gaps in the blog author's writing cadence.
+  - Social buttons or other social media integration. Because, really, when is the last time anyone _intentionally_ clicked on one of those "retweet this" buttons? These are, again, distracting visually from the content of the page.
+
+By contrast, this blog generator takes a minimalist approach. **Your words should be the blog's focus,** and everything else should be in the service of this. 
+
+### Simple implementation
+
+Finally, this is not an all-purpose tool: it doesn't have a lot of bells and whistles, it only makes simple blogs, and it makes them quickly.
+
+But a static blog makes for very fast load times, and minimal administrative hassle, compared to a dynamic blog engine like WordPress - I'm not interested in administering web servers and sql databases anymore :)
+
+Additionally, on a more personal note: it's built in C# on .NET, which I use every day anyway; not having to install big toolchains like Ruby just to update a simple blog is very nice
+
+
 
 
 # How To Use It
@@ -74,6 +96,8 @@ When the pages get processed, each markdown file gets converted to HTML, and the
 Additionally, any static files (like images, javascript files, fonts, etc) can be placed inside `input-raw-files`. They will be copied verbatim into the output directory.
 
 It's probably best to just run the generator on the included sample site, and check it out for yourself! :)
+
+
 
 
 
