@@ -3,6 +3,7 @@
 ### Less is more! A minimalist static blog generator. 
 
 Mies ingests markdown files, and generates a static blog. 
+
 Built on .NET Core 3. No extra databases or web frameworks required.
 
 
@@ -30,19 +31,20 @@ Some benefits of this tool in particular:
 This section needs fleshing out, but basically:
   1. Download and build this project. I use Visual Studio 2019, and the project requires .NET Core 3.1 
   2. Once Mies.exe is built, run it against the included SampleSite sample site directory:
-	```
-	PS C:\Users\Rob\Documents\mies> .\Mies\bin\Debug\netcoreapp3.1\Mies.exe .\SampleSite\
-	[19:34:46 INF] Initializing site: .\SampleSite\
-	[19:34:46 INF] Loading site file: C:\Users\Rob\Documents\mies\SampleSite\site.yaml
-	[19:34:46 INF] Loading 6 markdown pages...
-	[19:34:46 INF] Converting pages to HTML...
-	[19:34:49 INF] Preparing the output directory...
-	[19:34:49 INF] Deleting output directory C:\Users\Rob\Documents\mies\SampleSite\output
-	[19:34:49 INF] Creating output directory C:\Users\Rob\Documents\mies\SampleSite\output
-	[19:34:49 INF] Writing HTML pages to disk...
-	[19:34:49 INF] Done. Processed 6 pages.
-	[19:34:49 INF] Generated website in 3.8660648 seconds.
-	```
+
+		```
+		PS C:\Users\Rob\Documents\mies> .\Mies\bin\Debug\netcoreapp3.1\Mies.exe .\SampleSite\
+		[19:34:46 INF] Initializing site: .\SampleSite\
+		[19:34:46 INF] Loading site file: C:\Users\Rob\Documents\mies\SampleSite\site.yaml
+		[19:34:46 INF] Loading 6 markdown pages...
+		[19:34:46 INF] Converting pages to HTML...
+		[19:34:49 INF] Preparing the output directory...
+		[19:34:49 INF] Deleting output directory C:\Users\Rob\Documents\mies\SampleSite\output
+		[19:34:49 INF] Creating output directory C:\Users\Rob\Documents\mies\SampleSite\output
+		[19:34:49 INF] Writing HTML pages to disk...
+		[19:34:49 INF] Done. Processed 6 pages.
+		[19:34:49 INF] Generated website in 3.8660648 seconds.
+		```
   3. Check out the resulting SampleSite/output directory to see what it generates.
 
 A site definition has the following structure:
@@ -89,7 +91,5 @@ The project links against the following open source libraries:
   - Serilog: https://github.com/serilog/serilog
 
 These are not included in this source repo, but they and their dependencies are of course compiled into any binary builds. These libraries are copyright their respective authors and contributors, please see their repos for details.
-
-
 
 
