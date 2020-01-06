@@ -1,0 +1,58 @@
+body {
+	font-family: 'Lato', sans-serif;
+}
+
+.header {
+	margin-bottom: 3rem;
+}
+
+.header-contents {
+	padding: 2rem;
+}
+
+.simplelink {
+	text-decoration: none;
+	color: black;
+}
+
+.index-contents {
+	padding-left: 0px;
+}
+
+.blog-intro {
+	margin-bottom: 1em;
+	padding: 2rem;
+}
+
+.blog-contents {
+	padding: 2rem;
+	margin-bottom: 2rem;
+}
+
+.footer {
+	margin-top: 2rem;
+}
+
+.footer-contents {
+	padding: 2rem;
+}
+
+div.sidebar {
+	padding-top: 2rem;
+	padding-left: 40px;
+	padding-right: 0;
+}
+
+ul.sidebar {
+	padding: 0;
+}
+
+li.sidebar {
+	list-style: none;
+}
+
+li.sidebar:before {
+	content: '\25aa';
+	margin-left: -20px;
+	margin-right: 10px;
+}

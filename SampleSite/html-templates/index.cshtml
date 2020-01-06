@@ -1,0 +1,42 @@
+@model Mies.PageModel
+
+@{ await IncludeAsync("header.cshtml", Model); }
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-2 col-md-2">
+		</div>
+
+		<div class="col-10 col-md-7 index-contents">
+
+			<div class="container blog-intro">
+			@Raw(Model.Contents)
+			</div>
+
+
+		@{
+			var pages = Model.All.Pages
+				.Where(r => r.Model.IsBlogPost)
+				.OrderByDescending(r => (r.Model.Date?.Ticks ?? 0))
+				.Take(Model.Site.RecentPosts);
+
+			foreach (var page in pages) {
+
+			<div class="container shadow blog-contents">
+			@{ await IncludeAsync("postbody.cshtml", page.Model); }
+			</div>
+
+			<!--<a href="@page.Model.PageLink"> @page.Model.PageTitle </a>-->
+			}
+		}
+		</div>
+
+		<div class="col-10 col-md-3">
+			@{ await IncludeAsync("sidebar.cshtml", Model); }
+		</div>
+	</div>
+
+</div>
+
+@{ await IncludeAsync("footer.cshtml", Model); }
+

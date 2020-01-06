@@ -1,0 +1,39 @@
+@model Mies.PageModel
+
+<div class="container-fluid sidebar">
+@{
+	var pages = Model.All.Pages
+		.Where(r => !r.Model.IsBlogPost && !r.Model.IsIndex)
+		.OrderBy(r => r.Model.PageTitle)
+		.ToList();
+
+	if (pages.Count > 0) {
+		<ul class="sidebar">
+		@foreach (var page in pages) {
+			<li class="sidebar"> <a class="simplelink" href="@page.Model.PageLink"> @page.Model.PageTitle </a> </li>
+		}
+		</ul>
+	}
+}
+
+@{
+	var posts = Model.All.Pages
+		.Where(r => r.Model.IsBlogPost)
+		.OrderByDescending(r => (r.Model.Date?.Ticks ?? 0))
+		.Take(Model.Site.RecentPosts)
+		.ToList();
+
+	if (posts.Count > 0) {		
+		<ul class="sidebar">
+			<li class="sidebar"><a class="simplelink" href="all.html"> All posts</a></li>
+		</ul>
+
+		<ul class="sidebar"> Latest posts: 
+		@foreach (var post in posts) {
+			<li class="sidebar"> <a class="simplelink" href="@post.Model.PageLink"> @post.Model.PageTitle </a> </li>
+		}
+		</ul>
+	}
+}
+</div>
+

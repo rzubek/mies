@@ -1,0 +1,14 @@
+# directories
+templatesdir:   html-templates
+pagesdir:       input-pages
+rawfilesdir:    input-raw-files
+outputsdir:     output
+
+# metadata that shows up in the header and in metadata
+title:          I'm afraid I can't do that
+author:         HAL 9000
+description:    The Blog of HAL 9000
+
+# other settings
+recentposts:    5
+
