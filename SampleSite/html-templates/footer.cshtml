@@ -7,9 +7,12 @@
 		<div class="col-2 col-md-2"></div>
 
 		<div class="col-10 col-md-8 footer-contents">
-			<span class="text-muted">
-			Copyright &copy; @DateTime.Now.Year @Model.Site.Author
-			</span>
+			<div class="text-muted">
+				Copyright &copy; <!-- @DateTime.Now.Year --> @Model.Site.Author
+			</div>
+			<div class="text-muted">
+				<a href="https://github.com/rzubek/mies">Made by Mies</a>
+			</div>
 		</div>
 
 		<div class="col-10 col-md-2"></div>
@@ -17,6 +20,8 @@
 		</div>
 	</div>
 </div>
+
+<!-- this is required for bootstrap -->
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

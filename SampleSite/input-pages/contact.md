@@ -1,16 +1,12 @@
 ---
 pagetitle:	Contact Me
 template:	page.cshtml
-post:		true
 ---
 
-Hello there
 
+A regular blog would add some kind of contact info here.
 
-### Contact
-
-Want to get in touch? 
-Contact me at foobar@example.com
+Contact me at foobar@example.com for example :)
 
 
 
