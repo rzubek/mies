@@ -1,0 +1,40 @@
+@model Mies.PageModel
+
+@{ await IncludeAsync("header.cshtml", Model); }
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-2 col-md-2">
+		</div>
+
+		<div class="col-10 col-md-7 index-contents">
+
+			<div class="container shadow blog-contents">
+			@Raw(Model.Contents)
+
+			@{
+				var pages = Model.All.Pages
+					.Where(r => r.Model.IsBlogPost)
+					.OrderByDescending(r => (r.Model.Date?.Ticks ?? 0));
+
+				foreach (var page in pages) {
+
+					<div><a href="@page.Model.PageLink"> @page.Model.PageTitle </a>
+					@if (page.Model.Date.HasValue) {
+						<span><small>@page.Model.Date.Value.ToShortDateString()</small></span>
+					}
+					</div>
+				}
+			}
+			</div>
+		</div>
+
+		<div class="col-10 col-md-3">
+			@{ await IncludeAsync("sidebar.cshtml", Model); }
+		</div>
+	</div>
+
+</div>
+
+@{ await IncludeAsync("footer.cshtml", Model); }
+
