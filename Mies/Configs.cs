@@ -28,6 +28,9 @@ namespace Mies
         public string Generator = "Mies";
         public string Title, Author, Description;   // filled in by the user, and used to fill in website metadata
         public int RecentPosts;     // controls how many recent posts show up on the main page
+        public string GTag;
+
+        public bool IsGAEnabled => !string.IsNullOrWhiteSpace(GTag);
 
         // filled in at runtime:
         public FileInfo ConfigFile;

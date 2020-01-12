@@ -13,3 +13,7 @@ description:    The Blog of HAL 9000
 # other settings
 recentposts:    5
 
+# if you want to use google analytics, uncomment the line below and
+# replace UA-1234-1 with your real UA tracking ID.
+# don't forget to disable any ad blocker before testing! :)
+# gtag:           UA-1234-1

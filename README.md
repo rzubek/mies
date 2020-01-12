@@ -114,6 +114,9 @@ It's probably best to just run the generator on the included sample site, and ch
     title:          I'm afraid I can't do that
     author:         HAL 9000
     description:    The Blog of HAL 9000
+
+    # to use google analytics, uncomment this and replace with your tracking id:
+    # gtag:           UA-1234-1
 ```
 
 Most of the visual customization is done via theming. This repo comes with two sample themes, which you can modify by changing the path for the `themefile` entry:
