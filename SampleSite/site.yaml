@@ -3,7 +3,7 @@ pagesdir:       input-pages
 outputsdir:     output
 
 # theme location
-themefile:      themes/crown/theme.yaml
+themefile:      ../SampleThemes/crown/theme.yaml
 
 # metadata that shows up in the header and in metadata
 title:          I'm afraid I can't do that
