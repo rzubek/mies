@@ -1,8 +1,9 @@
 # directories
-templatesdir:   html-templates
 pagesdir:       input-pages
-rawfilesdir:    input-raw-files
 outputsdir:     output
+
+# theme location
+themefile:      themes/crown/theme.yaml
 
 # metadata that shows up in the header and in metadata
 title:          I'm afraid I can't do that

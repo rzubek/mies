@@ -13,6 +13,8 @@ namespace Mies
     {
         private MiesConfig MiesConfig;
         private SiteConfig SiteConfig;
+        private ThemeConfig ThemeConfig;
+
         private MarkdownPipeline Pipeline;
         private RazorLightEngine Engine;
 
@@ -21,9 +23,10 @@ namespace Mies
             Log.Information("Loading site file: " + config.SiteConfig);
 
             MiesConfig = config;
-            SiteConfig = LoadSiteConfig();
+            SiteConfig = LoadSiteConfig(config);
+            ThemeConfig = LoadThemeConfig(FindThemeConfig(SiteConfig));
 
-            var templatesDir = GetDirectory(SiteConfig.TemplatesDir);
+            var templatesDir = GetThemeDirectory(ThemeConfig.TemplatesDir);
             Pipeline = new MarkdownPipelineBuilder()
                 .UseAdvancedExtensions()
                 .UseYamlFrontMatter().Build();
@@ -31,6 +34,12 @@ namespace Mies
             Engine = new RazorLightEngineBuilder()
                 .UseFileSystemProject(templatesDir.FullName)
                 .UseMemoryCachingProvider().Build();
+        }
+
+        private FileInfo FindThemeConfig (SiteConfig siteConfig) {
+            var theme = siteConfig.ThemeFile;
+            var path = Path.Combine(MiesConfig.SiteDirectory.FullName, theme);
+            return new FileInfo(path);
         }
 
         /// <summary>
@@ -41,20 +50,42 @@ namespace Mies
             return 0;
         }
 
-        private DirectoryInfo GetDirectory (string name) =>
-            new DirectoryInfo(Path.Combine(MiesConfig.SiteDirectory.FullName, name));
+        private DirectoryInfo GetSiteDirectory (string name) =>
+            new DirectoryInfo(Path.Combine(SiteConfig.ConfigFile.DirectoryName, name));
 
-        private SiteConfig LoadSiteConfig () {
-            if (!MiesConfig.SiteDirectory.Exists) {
-                throw new DirectoryNotFoundException("Site directory not found: " + MiesConfig.SiteDirectory.FullName);
-            }
+        private DirectoryInfo GetThemeDirectory (string name) =>
+            new DirectoryInfo(Path.Combine(ThemeConfig.ConfigFile.DirectoryName, name));
 
-            if (!MiesConfig.SiteConfig.Exists) {
-                throw new FileNotFoundException("Site config file not found: " + MiesConfig.SiteConfig.FullName);
-            }
 
-            var contents = File.ReadAllText(MiesConfig.SiteConfig.FullName);
-            return YamlUtils.ParseYaml<SiteConfig>(MiesConfig.SiteConfig, contents);
+        private void CheckExistence (DirectoryInfo info, string debugname) {
+            if (info.Exists) { return; }
+            throw new DirectoryNotFoundException($"{debugname} not found: {info.FullName}");
+        }
+
+        private void CheckExistence (FileInfo info, string debugname) {
+            if (info.Exists) { return; }
+            throw new FileNotFoundException($"{debugname} not found: {info.FullName}");
+        }
+
+
+
+        private SiteConfig LoadSiteConfig (MiesConfig config) {
+            CheckExistence(config.SiteDirectory, "Site directory");
+            CheckExistence(config.SiteConfig, "Site config file");
+
+            var contents = File.ReadAllText(config.SiteConfig.FullName);
+            var result = YamlUtils.ParseYaml<SiteConfig>(config.SiteConfig, contents);
+            result.ConfigFile = config.SiteConfig;
+            return result;
+        }
+
+        private ThemeConfig LoadThemeConfig (FileInfo themeYaml) {
+            CheckExistence(themeYaml, "Theme config file");
+
+            var contents = File.ReadAllText(themeYaml.FullName);
+            var result = YamlUtils.ParseYaml<ThemeConfig>(themeYaml, contents);
+            result.ConfigFile = themeYaml;
+            return result;
         }
 
 
@@ -62,10 +93,11 @@ namespace Mies
         // page loading and generation
 
         public async Task<AllPages> ProcessPages (int max) {
-            var rawfiles = GetDirectory(SiteConfig.RawFilesDir);
-            var inputs = GetDirectory(SiteConfig.PagesDir);
-            var outputs = GetDirectory(SiteConfig.OutputsDir);
+            var rawfiles = GetThemeDirectory(ThemeConfig.RawFilesDir);
+            var inputs = GetSiteDirectory(SiteConfig.PagesDir);
+            var outputs = GetSiteDirectory(SiteConfig.OutputsDir);
 
+            Log.Debug($"  Theme: {ThemeConfig.ConfigFile.FullName}");
             Log.Debug($"  Input directory: {inputs.FullName}");
             Log.Debug($"  Output directory: {outputs.FullName}");
 

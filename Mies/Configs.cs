@@ -15,19 +15,36 @@ namespace Mies
 
     /// <summary>
     /// Site configuration data read from site.yaml.
-    /// All directories are assumed to be relative to the location of site.yaml
-    /// unless otherwise specified.
+    /// All directories are assumed to be relative to the location of site.yaml unless otherwise specified.
     /// </summary>
     public class SiteConfig
     {
+        // directories
         public string PagesDir;     // subdirectory containing .md markdown files with page content
+        public string OutputsDir;   // working directory where the output will be placed
+        public string ThemeFile;    // file name of the theme.yaml file to apply
+
+        // settings
+        public string Generator = "Mies";
+        public string Title, Author, Description;   // filled in by the user, and used to fill in website metadata
+        public int RecentPosts;     // controls how many recent posts show up on the main page
+
+        // filled in at runtime:
+        public FileInfo ConfigFile;
+    }
+
+    /// <summary>
+    /// Theme configuration data read from theme.yaml.
+    /// All directories are assumed to be relative to the location of theme.yaml unless otherwise specified.
+    /// </summary>
+    public class ThemeConfig
+    {
+        public string ThemeName;    // user-friendly theme name
         public string TemplatesDir; // subdirectory containing .cshtml template files
         public string RawFilesDir;  // contents of this subdirectory will be copied verbatim (e.g. for images, .css files)
-        public string OutputsDir;   // working directory where the output will be placed
 
-        public string Generator = "MIES";
-        public string Title, Author, Description;   // filled in by the user, and used to fill in website metadata
-        public int RecentPosts;                     // controls how many recent posts show up on the main page
+        // filled in at runtime:
+        public FileInfo ConfigFile;
     }
 
     /// <summary>

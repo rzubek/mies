@@ -1,0 +1,13 @@
+@model Mies.PageModel
+
+<h2><a class="simplelink" href="@Model.PageLink">@Model.PageTitle</a></h2>
+
+@if (Model.Date != null) {
+	<div><small>@Model.Date.Value.ToLongDateString()</small></div>
+	<br/>
+}
+
+@Raw(Model.Contents)
+
+
+
