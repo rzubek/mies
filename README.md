@@ -10,7 +10,7 @@ Built on .NET Core 3. No extra databases or web frameworks required.
 
 # Details
 
-Mies is a static blog generator. You write a blog as a collection of markdown files, and pick a theme (or make your own). Mies then generates a complete set of HTML pages plus a dynamic front page with most recent posts.
+Mies is a static blog generator. You write a blog as a collection of [markdown](https://commonmark.org/help/) files, and pick a theme (or make your own). Mies then generates a complete set of HTML pages plus a dynamic front page with most recent posts.
 
 Why do a static blog like this, instead of your standard Wordpress/Jekyll/etc installation?
 
@@ -41,9 +41,9 @@ By contrast, this blog generator takes a minimalist approach. **Your words shoul
 
 Finally, this is not an all-purpose tool: it doesn't have a lot of bells and whistles, it only makes simple blogs, and it makes them quickly.
 
-But a static blog makes for very fast load times, and minimal administrative hassle, compared to a dynamic blog engine like WordPress - I'm not interested in administering web servers and sql databases anymore :)
+But a static blog makes for very fast load times, and minimal administrative hassle, compared to a dynamic blog engine like WordPress - I'm not interested in administering web servers and sql databases anymore 😎
 
-Additionally, on a more personal note: it's built in C# on .NET, which I use every day anyway; not having to install big toolchains like Ruby just to update a simple blog is very nice
+Additionally, on a more personal note: it's built in C# on .NET, which I use every day anyway; not having to install big toolchains like Ruby just to update a simple blog is very nice.
 
 
 
@@ -52,7 +52,7 @@ Additionally, on a more personal note: it's built in C# on .NET, which I use eve
 ### Running Mies
 
 This section needs fleshing out, but basically:
-  1. Download and build this project. For example, I use Visual Studio 2019, and the project requires .NET Core 3.1 
+  1. Download and build this project. For example, I use Visual Studio 2019, and the project requires .NET Core 3.1 as part of the installation.
   2. Once Mies.exe is built, run it against the included SampleSite sample site directory:
 
 ```
@@ -73,27 +73,28 @@ This section needs fleshing out, but basically:
 
 ### Creating a New Site
 
-A site is made of the main input pages, and a reference to a theme. The theme is a directory that contains page templates as well as other styling elements (style sheets, scripts, images, etc).
+A blog site is made of posts written in [markdown](https://commonmark.org/help/), and a definition file, which specifies which theme to apply, and other details. 
 
-Your **site definition** has the following structure:
+The site directory has the following structure:
 
 ```
   site directory
   |
   +-- input-pages
   | +-- about.md, index.md, post-1.md, post-2.md, etc. ...
+  |     (this is where markdown pages live)
   |
   +-- output
   | +-- (empty directory, this is where the blog will be generated)
   |
-  +-- site.yaml: defines global blog info, such as title, author, etc.
+  +-- site.yaml: defines theme and global blog info, such as title, author, etc.
 ```
 
 Markdown page content lives in `input-pages` (but the directory can be renamed if desired). 
 
-Each markdown page starts with a header that specifies common metadata, like page title and publishing date, as well as which template file to use for that page. The most common template file is `page.cshtml`.
+Each markdown page starts with a header that specifies common metadata, like page title and publishing date, as well as which template file to use for that page. The most common template file is `page.cshtml`, but the "index" page or "about" page will typically want to use different templates.
 
-When the pages get processed, each markdown file gets converted to HTML content snippet, and then turned into the final page using theme templates. Each template can have full control over where to insert the HTML contents, what kinds of headers or footers to attach, and so on.
+When the pages get processed, each markdown file gets converted to a HTML content snippet first, and then turned into the final HTML page using theme templates. Each template can have full control over placing the contents, what kinds of headers or footers to attach, and so on.
 
 It's probably best to just run the generator on the included sample site, and check it out for yourself! :)
 
@@ -109,7 +110,7 @@ It's probably best to just run the generator on the included sample site, and ch
     # theme location
     themefile:      ../SampleThemes/crown/theme.yaml
 
-    # metadata that shows up in the header and in metadata
+    # information that shows up in pages and in html metadata
     title:          I'm afraid I can't do that
     author:         HAL 9000
     description:    The Blog of HAL 9000
@@ -118,9 +119,11 @@ It's probably best to just run the generator on the included sample site, and ch
 Most of the visual customization is done via theming. This repo comes with two sample themes, which you can modify by changing the path for the `themefile` entry:
 
 <img width="450px" height="350px" src="Docs/ThemeCrown.png">
+
 **Crown Theme** - /SampleThemes/crown/theme.yaml
 
 <img width="450px" height="350px" src="Docs/ThemeFarnsworth.png">
+
 **Farnsworth Theme** - /SampleTheme/farnsworth/theme.yaml
 
 
@@ -133,16 +136,18 @@ Similarly to a site, a theme is composed of a config yaml file and directories w
   |
   +-- html-templates 
   | +-- header.cshtml, footer.cshtml, page.cshtml, etc. ...
+  |     (Razor templates live here)
   |
   +-- raw-files
   | +-- site.css, other static files ...
+  |     (Style sheets etc.)
   |
   +-- theme.yaml: defines the above directories, plus metadata such as theme name
 ```
 
-`html-templates` is the location of Razor templates, each specified as a .cshtml file. None of the template file names are hard-coded into Mies, instead they are referenced by markdown files - so markdown content and template file names need to match up.
+`html-templates` is the location of Razor templates, each specified as a .cshtml file. Template file names are *not* hard-coded into Mies, instead they are referenced by markdown files - so markdown content and template file names need to match up.
 
-Additionally, any static files (like images, javascript files, fonts, etc) can be placed inside `raw-files`. They will be copied verbatim into the output directory at build time.
+Additionally, any static files (like style sheets, images, fonts, etc) can be placed inside `raw-files`. They will be copied verbatim into the output directory at build time.
 
 
 ## License and Credits
