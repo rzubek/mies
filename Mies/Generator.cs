@@ -158,7 +158,11 @@ namespace Mies
             
             if (Directory.Exists(path)) {
                 Log.Information($"Deleting output directory {path}");
-                Directory.Delete(path, true);
+                string temp = $"{path}_temp_{DateTime.Now.Ticks.ToString()}";
+                Log.Debug($"Renaming {path} => {temp}");
+                Directory.Move(path, temp);
+                Log.Debug($"Deleting {temp}");
+                Directory.Delete(temp, true);
             }
 
             Log.Information($"Creating output directory {path}");
