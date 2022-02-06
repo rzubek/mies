@@ -29,6 +29,8 @@ namespace Mies
             var templatesDir = GetThemeDirectory(ThemeConfig.TemplatesDir);
             Pipeline = new MarkdownPipelineBuilder()
                 .UseAdvancedExtensions()
+                .UseSmartyPants()
+                .UseEmojiAndSmiley()
                 .UseYamlFrontMatter().Build();
 
             Engine = new RazorLightEngineBuilder()
