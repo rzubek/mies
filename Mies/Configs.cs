@@ -61,6 +61,7 @@ namespace Mies
         public string PageTitle;  // title of the page, shown in the browser title bar, metadata, and in inbound links
         public string PageDesc;   // short one liner description, used in table of contents as well as metadata
         public DateTime? Date;    // timestamp for this page; may be null in which case it will not be displayed
+        public bool IsDraft;      // if true, this page will be skipped during generation (useful for draft posts)
         public bool IsBlogPost;   // if true, this page will be added chronologically on the index page and in the table of contents
         public bool IsIndex;      // if true, this page will be generated last, so that it can index the other ones
         public string Template;   // which .cshtml file to use for this page

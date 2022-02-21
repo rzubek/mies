@@ -112,6 +112,7 @@ namespace Mies
 
             Log.Information($"Loading {all.Pages.Count} markdown pages...");
             foreach (var page in all.Pages) { LoadPage(page, all); }
+            RemoveDrafts(all.Pages);
             MoveIndexPagesToEnd(all.Pages);
 
             Log.Information("Converting pages to HTML...");
@@ -135,6 +136,19 @@ namespace Mies
             var outfile = Path.ChangeExtension(inpath.Name, ".html");
             var outpath = new FileInfo(Path.Combine(outputs.FullName, outfile));
             return new PageResult { InPath = inpath, OutPath = outpath };
+        }
+
+        /// <summary>
+        /// Remove any draft pages from the list, so we don't render them at all.
+        /// </summary>
+        private void RemoveDrafts (List<PageResult> results) {
+            for (int i = results.Count - 1; i >= 0; i--) {
+                var page = results[i];
+                if (page.Model.IsDraft) {
+                    Log.Debug($"  Skipping draft page {page.InPath.Name}");
+                    results.RemoveAt(i);
+                }
+            }
         }
 
         /// <summary>
@@ -222,9 +236,8 @@ namespace Mies
         /// the already-transformed markdown file
         /// </summary>
         private async Task RenderPage (PageResult page) {
-            Log.Debug($"  Rendering page {page.InPath.Name} => {page.OutPath.Name}");
-
             try {
+                Log.Debug($"  Rendering page {page.InPath.Name} => {page.OutPath.Name}");
                 page.HtmlOutput = await Engine.CompileRenderAsync(page.Model.Template, page.Model);
             } catch (Exception e) {
                 throw new InvalidOperationException($"Error while rendering HTML for page {page.InPath.Name}", e);
